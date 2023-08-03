@@ -23,9 +23,9 @@ class UsersRepositoryTest {
 
 
  private Users user ;
- private UserRole userRole;
- private Roles role;
- private UserSkills userSkills ;
+ private UserRole userRole = new UserRole();
+ private Roles role = new Roles();
+ private UserSkills userSkills = new UserSkills();
 
  private Skills skill ;
 
@@ -42,7 +42,7 @@ class UsersRepositoryTest {
           .email("test@gmail.com")
           .userRole((Set<UserRole>) userRole)
           .userSkills((Set<UserSkills>) userSkills)
-          .providerToken("ok")
+         // .providerToken("ok")
           .build();
  }
     @Test
