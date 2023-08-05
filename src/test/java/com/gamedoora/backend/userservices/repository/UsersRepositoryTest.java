@@ -19,32 +19,36 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @TestPropertySource("classpath:application.properties")
 class UsersRepositoryTest {
 
- @Autowired private UsersRepository usersRepository;
+    @Autowired private UsersRepository usersRepository;
 
 
- private Users user ;
- private UserRole userRole = new UserRole();
- private Roles role = new Roles();
- private UserSkills userSkills = new UserSkills();
+    private Users user ;
+    private Skills skill ;
+    private UserRole userRole = new UserRole();
+    private Roles role = new Roles();
+    private UserSkills userSkills = new UserSkills();
+    Users users = new Users();
 
- private Skills skill ;
 
- @BeforeEach
- void setup(){
-  userRole = UserRole.builder().roles(role).build();
-  userSkills = UserSkills.builder().skills(skill).build();
 
-  skill = Skills.builder().id(1L).build();
+    @BeforeEach
+    void setup(){
+        userRole = UserRole.builder().roles(role).build();
+        userSkills = UserSkills.builder().skills(skill).build();
 
-  user = Users.builder()
-          .id(1L)
-          .firstName("Test")
-          .email("test@gmail.com")
-          .userRole((Set<UserRole>) userRole)
-          .userSkills((Set<UserSkills>) userSkills)
-         // .providerToken("ok")
-          .build();
- }
+        skill = Skills.builder().id(1L).build();
+
+        users = Users.builder()
+                .id(1L)
+                .firstName("Test")
+                .email("test@gmail.com")
+                .userRole((Set<UserRole>) userRole)
+                .userSkills((Set<UserSkills>) userSkills)
+                .providerToken("")
+                .build();
+    }
+
+
     @Test
     void findByName() {
         usersRepository.save(user);
@@ -71,16 +75,14 @@ class UsersRepositoryTest {
     @Test
     void findRolesBySkill_SkillsId() {
         usersRepository.save(user);
-        List<UserRole> userRoleList = usersRepository.findRolesByuserSkills_SkillsId(skill.getId());
+        List<UserRole> userRoleList = usersRepository.findRolesByUserSkills_Id(userRole.getId());
         assertFalse(userRoleList.isEmpty());
     }
     @Test
     void listUsersBySkill_SkillsId() {
         usersRepository.save(user);
         // List<Users> userSkillsList = usersRepository.listUsersBySkill_SkillsId(skill.getId());
-        List<Users> userSkillsList = usersRepository.findByUserSkills_SkillsId(skill.getId());
+        List<UserSkills> userSkillsList = usersRepository.findByUserSkills_Id(userSkills.getId());
         assertFalse(userSkillsList.isEmpty());
     }
 }
-
-

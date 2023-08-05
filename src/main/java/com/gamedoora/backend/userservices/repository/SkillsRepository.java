@@ -12,6 +12,6 @@ import com.gamedoora.model.dao.Skills;
 public interface SkillsRepository extends JpaRepository<Skills, Long> {
 
 	List<Skills> findByNameContaining(String name);
-
-	List<Users> findByUsers_UserId(Long userId);
+    List<Users> findByuserSkills_Id(Long SkillsId);
+//	List<Users> findByUsers_UserId(Long userId);
 }
